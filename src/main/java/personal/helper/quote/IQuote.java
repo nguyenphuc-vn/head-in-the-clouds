@@ -1,7 +1,7 @@
-package personal;
+package personal.helper.quote;
 
-public interface IApp {
+
+public interface IQuote {
     boolean connect(String api);
     Object transform(Object object);
-
 }

@@ -1,8 +1,7 @@
-package personal.helper;
+package personal.helper.quote;
 
 import com.google.gson.Gson;
-import personal.IApp;
-import personal.model.TaylorSwiftDTO;
+
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -18,7 +17,7 @@ import java.util.logging.*;
  * return resposebody
  * turn that into TaylorSwiftDTO
  */
-public class TaylorSwift implements IApp {
+public class TaylorSwift implements IQuote {
            private final static Logger LOGGER = Logger.getLogger(TaylorSwift.class.getName());
            private String body;
 
@@ -52,7 +51,7 @@ public class TaylorSwift implements IApp {
     @Override
     public Object transform(Object object) {
         Gson gson = new Gson();
-        object  = gson.fromJson(body,TaylorSwiftDTO.class);
+        object = gson.fromJson(body,object.getClass());
         return object;
     }
 
