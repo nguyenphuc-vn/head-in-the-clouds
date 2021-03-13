@@ -1,7 +1,6 @@
-package personal.helper;
+package personal.helper.quote;
 
 import com.google.gson.Gson;
-import personal.IApp;
 
 
 import java.io.IOException;
@@ -18,7 +17,7 @@ import java.util.logging.*;
  * return resposebody
  * turn that into TaylorSwiftDTO
  */
-public class TaylorSwift implements IApp {
+public class TaylorSwift implements IQuote {
            private final static Logger LOGGER = Logger.getLogger(TaylorSwift.class.getName());
            private String body;
 

@@ -7,8 +7,7 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Shape;
-import personal.helper.TaylorSwift;
-import personal.model.TaylorSwiftDTO;
+
 
 import java.io.IOException;
 import java.net.URL;
@@ -28,6 +27,10 @@ public class AppController implements Initializable {
         @FXML
         public void switchQuote() throws IOException {
             App.setRoot("quote");
+        }
+        @FXML
+        public static void switchBackHome()throws IOException{
+            App.setRoot("app");
         }
 
 

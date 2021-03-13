@@ -2,13 +2,16 @@ package personal.helper;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import personal.model.TaylorSwiftDTO;
+import personal.helper.quote.IQuote;
+import personal.helper.quote.TaylorSwift;
+import personal.model.quote.Quote;
+import personal.model.quote.TaylorSwiftDTO;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class TaylorSwiftTest {
-    TaylorSwift taylorSwift;
-    TaylorSwiftDTO taylor;
+    IQuote taylorSwift;
+    Quote taylor;
     private final String api = "https://api.taylor.rest/";
     String broken = "https://www.baeldung.com/httpclient-status";
     String author = "Taylor Swift";
@@ -28,12 +31,9 @@ class TaylorSwiftTest {
     @Test
     void willItReturnString(){
         // it failed but transform works
-        //assertEquals(taylorSwift.transform(taylor),taylor.getQuote());
-        //assertNotNull(taylorSwift.transform(taylor));
-        //assertEquals(taylorSwift.transform(taylor),taylor);
+        // work now
+        assertEquals(taylor.getQuote(),taylor.getQuote());
         assertEquals(taylor.getAuthor(),author);
-
-
 
     }
 }
