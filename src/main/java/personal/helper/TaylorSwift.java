@@ -1,6 +1,8 @@
 package personal.helper;
 
+import com.google.gson.Gson;
 import personal.IApp;
+import personal.model.TaylorSwiftDTO;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -18,8 +20,7 @@ import java.util.logging.*;
  */
 public class TaylorSwift implements IApp {
            private final static Logger LOGGER = Logger.getLogger(TaylorSwift.class.getName());
-
-
+           private String body;
 
 
     @Override
@@ -37,7 +38,8 @@ public class TaylorSwift implements IApp {
            int statusCode = response.statusCode();
            LOGGER.info("Status code: "+statusCode);
            if (statusCode == HttpURLConnection.HTTP_OK){
-               LOGGER.info(response.body());
+               body = response.body();
+               LOGGER.info(body);
                return true;
            }
        }catch (IOException | InterruptedException ex){
@@ -48,8 +50,10 @@ public class TaylorSwift implements IApp {
     }
 
     @Override
-    public void transform() {
-
+    public Object transform(Object object) {
+        Gson gson = new Gson();
+        object  = gson.fromJson(body,TaylorSwiftDTO.class);
+        return object;
     }
 
 

@@ -1,15 +1,26 @@
 package personal.model;
 
+/**
+ * only for Json to java object
+ */
 public class TaylorSwiftDTO {
-        private int id;
-        private String quote;
+
+
+    private String quote;
+    private String author;
 
     public TaylorSwiftDTO() {
     }
-
-    public TaylorSwiftDTO(int id, String quote) {
-        this.id = id;
-        this.quote = quote;
+    public String getQuote() {
+        return quote;
+    }
+    public String getAuthor() {
+        return author;
     }
 
+    @Override
+    public String toString() {
+        return  quote+"\n"  +
+                 author ;
+    }
 }
