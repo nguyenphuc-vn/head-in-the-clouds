@@ -18,7 +18,7 @@ class TaylorSwiftTest {
         taylorSwift = new TaylorSwift();
         taylor = new TaylorSwiftDTO();
         taylorSwift.connect(api);
-        taylorSwift.transform(taylor);
+       taylor = (TaylorSwiftDTO) taylorSwift.transform(taylor);
     }
     @Test
     void doesItConnectsOk(){

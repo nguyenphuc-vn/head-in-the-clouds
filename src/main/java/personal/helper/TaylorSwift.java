@@ -2,7 +2,7 @@ package personal.helper;
 
 import com.google.gson.Gson;
 import personal.IApp;
-import personal.model.TaylorSwiftDTO;
+
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -52,7 +52,7 @@ public class TaylorSwift implements IApp {
     @Override
     public Object transform(Object object) {
         Gson gson = new Gson();
-        object  = gson.fromJson(body,TaylorSwiftDTO.class);
+        object = gson.fromJson(body,object.getClass());
         return object;
     }
 
