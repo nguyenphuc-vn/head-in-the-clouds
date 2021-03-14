@@ -14,7 +14,7 @@ import java.util.logging.*;
 
 /**
  * using HttpClient , send get request to server
- * return resposebody
+ * return response body
  * turn that into TaylorSwiftDTO
  */
 public class TaylorSwift implements IQuote {
@@ -26,7 +26,7 @@ public class TaylorSwift implements IQuote {
     public boolean connect(String api) {
        try{
            HttpClient httpClient = HttpClient.newHttpClient();
-           HttpRequest request =
+           HttpRequest request   =
                  HttpRequest.newBuilder()
                 .uri(URI.create(api))
                 .timeout(Duration.ofSeconds(5))
@@ -51,7 +51,7 @@ public class TaylorSwift implements IQuote {
     @Override
     public Object transform(Object object) {
         Gson gson = new Gson();
-        object = gson.fromJson(body,object.getClass());
+           object = gson.fromJson(body,object.getClass());
         return object;
     }
 

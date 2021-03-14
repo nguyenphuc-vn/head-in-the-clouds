@@ -9,13 +9,20 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.logging.Logger;
 
+/**
+ * send request -> read body -> parse reader -> turn to DayQuoteDTO (Object)
+ * using HttpURLConnection instead
+ * the result is more code to write
+ * but still work
+ */
 public class DayQuote implements IQuote {
     private final static Logger LOGGER = Logger.getLogger(DayQuote.class.getName());
     private HttpURLConnection httpconn;
+
     @Override
     public boolean connect(String api) {
         try{
-            URL url = new URL(api);
+            URL url  = new URL(api);
             httpconn = (HttpURLConnection) url.openConnection();
             httpconn.setRequestProperty("accept","application/json");
             httpconn.setRequestMethod("GET");

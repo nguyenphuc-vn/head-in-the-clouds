@@ -3,6 +3,7 @@ package personal.controller.quote;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import personal.App;
 import personal.helper.quote.DayQuote;
 import personal.helper.quote.IQuote;
 import personal.helper.quote.TaylorSwift;
@@ -10,6 +11,7 @@ import personal.model.quote.DayQuoteDTO;
 import personal.model.quote.Quote;
 import personal.model.quote.TaylorSwiftDTO;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -26,12 +28,13 @@ public class QuoteController implements Initializable {
     @FXML
     private Label authorLb;
 
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        iTaylor = new TaylorSwift();
-        taylor = new TaylorSwiftDTO();
+        iTaylor   = new TaylorSwift();
+        taylor    = new TaylorSwiftDTO();
         iDayQuote = new DayQuote();
-        dayQuote = new DayQuoteDTO();
+        dayQuote  = new DayQuoteDTO();
 
     }
 
@@ -45,7 +48,7 @@ public class QuoteController implements Initializable {
     }
     @FXML
     public void quoteClick(){
-        isTrue = false;
+        isTrue   = false;
         iDayQuote.connect(dayQuoteApi);
         dayQuote = (Quote) iDayQuote.transform(dayQuote);
         set(dayQuote,quoteLb,authorLb);
@@ -54,10 +57,14 @@ public class QuoteController implements Initializable {
     private void set(Quote quotes,Label quoteLb, Label authorLb){
 
         String author = quotes.getAuthor();
-        String quote = isTrue ?
+        String quote  = isTrue ?
                 quotes.getQuote() :
                 quotes.getContent();
         quoteLb.setText(quote);
         authorLb.setText(author);
+    }
+    @FXML
+    private void backHome() throws IOException {
+        App.switchBackHome();
     }
 }
