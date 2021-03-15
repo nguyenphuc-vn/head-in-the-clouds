@@ -10,7 +10,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MazeController implements Initializable {
-    private GraphicsContext gc;
     private Maze maze;
     @FXML
     private Canvas canvas;
@@ -24,6 +23,7 @@ public class MazeController implements Initializable {
     @FXML
     public void draw(){
         maze.setUp();
-        gc =maze.show(canvas);
+        maze.setUpGc(canvas);
+        maze.draw();
     }
 }

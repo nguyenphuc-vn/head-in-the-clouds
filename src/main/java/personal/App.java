@@ -14,8 +14,6 @@ import java.io.IOException;
  * JavaFX App
  */
 public class App extends Application {
-    //private final static int MIN_WIDTH = 600;
-    //private final static int MIN_HEIGHT = 400;
     private final static int MAX_WIDTH = 910;
     private final static int MAX_HEIGHT = 610;
     private static Scene scene;
@@ -25,10 +23,6 @@ public class App extends Application {
         scene = new Scene(loadFXML("maze"), MAX_WIDTH, MAX_HEIGHT);
         stage.setScene(scene);
         stage.setTitle("HEAD IN THE CLOUDS");
-        //stage.setMinWidth(MIN_WIDTH);
-        //stage.setMinHeight(MIN_HEIGHT);
-        //stage.setMaxWidth(MAX_WIDTH);
-        //stage.setMaxHeight(MAX_HEIGHT);
         stage.setResizable(false);
         stage.show();
     }
