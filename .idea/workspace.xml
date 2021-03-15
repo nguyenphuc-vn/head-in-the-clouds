@@ -4,21 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d6aab57b-7123-43f6-98d9-c40cca14d072" name="Default Changelist" comment="add more quote from https://api.quotable.io/random">
+    <list default="true" id="d6aab57b-7123-43f6-98d9-c40cca14d072" name="Default Changelist" comment="add css">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/personal/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/personal/App.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/personal/AppController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/personal/AppController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/personal/controller/quote/QuoteController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/personal/controller/quote/QuoteController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/personal/helper/quote/DayQuote.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/personal/helper/quote/DayQuote.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/personal/helper/quote/TaylorSwift.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/personal/helper/quote/TaylorSwift.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/personal/view/app.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/personal/view/app.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/personal/view/quote.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/personal/view/quote.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/personal/App.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/personal/App.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/personal/AppController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/personal/AppController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/personal/controller/quote/QuoteController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/personal/controller/quote/QuoteController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/personal/helper/quote/DayQuote.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/personal/helper/quote/DayQuote.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/personal/view/app.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/personal/view/app.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/personal/view/quote.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/personal/view/quote.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/personal/model/quote/Quote.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/personal/model/quote/Quote.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/personal/App.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/personal/AppController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/personal/controller/quote/QuoteController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/personal/css/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/personal/helper/quote/DayQuote.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/personal/view/app.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/personal/view/quote.fxml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,6 +42,9 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedIndex" value="1" />
+  </component>
   <component name="ProjectId" id="1pfMdTKhVfACnpupr6okAuIrjmX" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
@@ -59,11 +61,17 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\head-in-the-clouds\head-in-the-clouds\src\main\resources\personal\view" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="personal.helper.quote" />
@@ -87,13 +95,15 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="class" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -180,7 +190,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1615569782157</updated>
-      <workItem from="1615569785911" duration="33138000" />
+      <workItem from="1615569785911" duration="33824000" />
+      <workItem from="1615781838207" duration="8542000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <created>1615570172924</created>
@@ -231,11 +242,36 @@
       <option name="project" value="LOCAL" />
       <updated>1615648543155</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="add css">
+      <created>1615717976621</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1615717976621</updated>
+    </task>
+    <task id="LOCAL-00009" summary="add css">
+      <created>1615718104341</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1615718104341</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="init" />
@@ -244,6 +280,7 @@
     <MESSAGE value="fixed null String" />
     <MESSAGE value="more logical" />
     <MESSAGE value="add more quote from https://api.quotable.io/random" />
-    <option name="LAST_COMMIT_MESSAGE" value="add more quote from https://api.quotable.io/random" />
+    <MESSAGE value="add css" />
+    <option name="LAST_COMMIT_MESSAGE" value="add css" />
   </component>
 </project>

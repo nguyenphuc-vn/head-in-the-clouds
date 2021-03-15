@@ -25,7 +25,7 @@ public class AppController implements Initializable {
             setImage(ellipse,getPath(quoteImage));
         }
         @FXML
-        public void switchQuote() throws IOException {
+        private void switchQuote() throws IOException {
             App.setRoot("quote");
         }
 

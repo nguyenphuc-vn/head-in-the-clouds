@@ -1,11 +1,9 @@
 package personal;
 
 import javafx.application.Application;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -14,31 +12,21 @@ import java.io.IOException;
  * JavaFX App
  */
 public class App extends Application {
-    //private final static int MIN_WIDTH = 600;
-    //private final static int MIN_HEIGHT = 400;
-    private final static int MAX_WIDTH = 900;
-    private final static int MAX_HEIGHT = 600;
+    private final static int MAX_WIDTH = 910;
+    private final static int MAX_HEIGHT = 610;
     private static Scene scene;
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("app"), MAX_WIDTH, MAX_HEIGHT);
+        scene = new Scene(loadFXML("maze"), MAX_WIDTH, MAX_HEIGHT);
         stage.setScene(scene);
         stage.setTitle("HEAD IN THE CLOUDS");
-        //stage.setMinWidth(MIN_WIDTH);
-        //stage.setMinHeight(MIN_HEIGHT);
-        //stage.setMaxWidth(MAX_WIDTH);
-        //stage.setMaxHeight(MAX_HEIGHT);
         stage.setResizable(false);
         stage.show();
     }
 
     public static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
-    }
-
-    public static void switchBackHome()throws IOException {
-        App.setRoot("app");
     }
 
     private static Parent loadFXML(String fxml) throws IOException {

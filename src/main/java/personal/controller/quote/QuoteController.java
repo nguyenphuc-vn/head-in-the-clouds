@@ -65,6 +65,6 @@ public class QuoteController implements Initializable {
     }
     @FXML
     private void backHome() throws IOException {
-        App.switchBackHome();
+        App.setRoot("app");
     }
 }
