@@ -4,7 +4,6 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import personal.model.maze.Cell;
-import java.util.Stack;
 import java.util.logging.*;
 
 public class Maze {
@@ -14,14 +13,12 @@ public class Maze {
     private Cell [][] grids;
     private Cell [][] current;
     private boolean [][] visited ;
-    private Cell top,right,bottom,left;
+
 
     public void setUp(){
         grids = new Cell[Cell.getRow()][Cell.getCol()];
         current= new Cell[Cell.getRow()][Cell.getCol()];
         visited = new boolean[Cell.getRow()][Cell.getCol()];
-
-       // walls = new boolean[]{top,right,bottom,left};
         for(int rows = 0; rows<grids.length;rows++){
             for(int cols = 0; cols<grids[0].length;cols++){
                 grids[rows][cols] =new Cell(rows,cols);
@@ -39,7 +36,8 @@ public class Maze {
 
     }
     public void draw(){
-        visited[0][0] = true;
+        //visited[0][0] = true;
+        grids[0][0].setVisited();
         for(int rows = 0; rows<grids.length;rows++){
             for(int cols = 0; cols<grids[0].length;cols++){
                 grids[rows][cols].drawLine(gc);

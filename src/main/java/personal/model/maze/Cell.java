@@ -6,7 +6,7 @@ import javafx.scene.canvas.GraphicsContext;
 import java.util.Stack;
 
 public class Cell {
-    private final static int wall = 100;
+    private final static int wall = 20;
     private final static int WIDTH =800;
     private final static int HEIGHT =600;
     private int dimensionX;
@@ -29,11 +29,11 @@ public class Cell {
 
 
     public int getDimensionX() {
-        return dimensionX;
+        return dimensionX*wall;
     }
 
     public int getDimensionY() {
-        return dimensionY;
+        return dimensionY*wall;
     }
 
     public boolean isVisited() {
@@ -45,14 +45,14 @@ public class Cell {
     }
 
     public void drawLine(GraphicsContext gc){
-        int xWall = dimensionX+wall;
-        int yWall = dimensionY+wall;
+        int xWall = getDimensionX()+wall;
+        int yWall = getDimensionY()+wall;
         /*
           TOP
           ------
          */
         if(this.walls[0]) {
-            gc.strokeLine(dimensionX,dimensionY,xWall,dimensionY);
+            gc.strokeLine(getDimensionX(),getDimensionY(),xWall,getDimensionY());
         }
         /*
                |
@@ -60,7 +60,7 @@ public class Cell {
            RIGHT
          */
         if(this.walls[1]){
-            gc.strokeLine(xWall,dimensionY,xWall,yWall);
+            gc.strokeLine(xWall,getDimensionY(),xWall,yWall);
         }
 
 
@@ -69,7 +69,7 @@ public class Cell {
           BOTTOM
          */
         if(this.walls[2]) {
-            gc.strokeLine(dimensionX,yWall,xWall,yWall);
+            gc.strokeLine(getDimensionX(),yWall,xWall,yWall);
         }
         /*
           |
@@ -77,7 +77,7 @@ public class Cell {
           LEFT
          */
         if(this.walls[3]) {
-            gc.strokeLine(dimensionX,dimensionY,dimensionX,yWall);
+            gc.strokeLine(getDimensionX(),getDimensionY(),getDimensionX(),yWall);
         }
         if(this.isVisited) {
             gc.fillRect(xWall,yWall, wall, wall);
