@@ -283,4 +283,8 @@
     <MESSAGE value="add css" />
     <option name="LAST_COMMIT_MESSAGE" value="add css" />
   </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
 </project>
