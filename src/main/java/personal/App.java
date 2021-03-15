@@ -16,13 +16,13 @@ import java.io.IOException;
 public class App extends Application {
     //private final static int MIN_WIDTH = 600;
     //private final static int MIN_HEIGHT = 400;
-    private final static int MAX_WIDTH = 900;
-    private final static int MAX_HEIGHT = 600;
+    private final static int MAX_WIDTH = 910;
+    private final static int MAX_HEIGHT = 610;
     private static Scene scene;
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("app"), MAX_WIDTH, MAX_HEIGHT);
+        scene = new Scene(loadFXML("maze"), MAX_WIDTH, MAX_HEIGHT);
         stage.setScene(scene);
         stage.setTitle("HEAD IN THE CLOUDS");
         //stage.setMinWidth(MIN_WIDTH);
