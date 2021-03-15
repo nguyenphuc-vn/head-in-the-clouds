@@ -81,7 +81,7 @@
       <recent name="personal.helper" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.App">
+  <component name="RunManager" selected="JUnit.DayQuoteTest.checkConnection">
     <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="personal.App" />
       <module name="head-in-the-clouds" />
@@ -174,7 +174,6 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.App" />
         <item itemvalue="JUnit.DayQuoteTest.returnString" />
         <item itemvalue="JUnit.TaylorSwiftTest.willItReturnString" />
         <item itemvalue="JUnit.DayQuoteTest.checkConnection" />
