@@ -17,14 +17,14 @@ public class Maze {
 
     private GraphicsContext gc;
     private Cell[][] grids;
-    private boolean[][] visited;
+    //private boolean[][] visited;
     private Cell root;
-    private Stack<Cell> store;
+    //private Stack<Cell> store;
 
     public void setUp() {
         grids = new Cell[Cell.getRow()][Cell.getCol()];
-        visited = new boolean[Cell.getRow()][Cell.getCol()];
-        store = new Stack<>();
+        //visited = new boolean[Cell.getRow()][Cell.getCol()];
+        //store = new Stack<>();
         for (int rows = 0; rows < grids.length; rows++) {
             for (int cols = 0; cols < grids[0].length; cols++) {
                 grids[rows][cols] = new Cell(rows, cols);
@@ -35,7 +35,7 @@ public class Maze {
         // mark it as visited and push it to the stack
         root = grids[0][0];
         root.setVisited();
-        store.push(root);
+        //store.push(root);
 
     }
 
