@@ -23,5 +23,6 @@
          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
       </padding></Button>
    <Button layoutX="141.0" layoutY="300.0" mnemonicParsing="false" onMouseClicked="#quoteClick" prefHeight="37.0" prefWidth="94.0" styleClass="button1" stylesheets="@../css/style.css" text="Quote" AnchorPane.leftAnchor="141.0" AnchorPane.topAnchor="300.0" />
-   <Button layoutX="8.0" layoutY="527.0" mnemonicParsing="false" onMouseClicked="#backHome" prefHeight="45.0" prefWidth="121.0" styleClass="buttonBack" stylesheets="@../css/style.css" text="Go Back" />
+   <Button layoutX="8.0" layoutY="563.0" mnemonicParsing="false" onMouseClicked="#backHome" prefHeight="45.0"
+           prefWidth="121.0" styleClass="buttonBack" stylesheets="@../css/style.css" text="Back" />
 </AnchorPane>

@@ -10,6 +10,7 @@
    <Button layoutX="14.0" layoutY="170.0" mnemonicParsing="false" onMouseClicked="#draw" prefHeight="37.0" prefWidth="79.0" text="Run" />
    <Button layoutX="14.0" layoutY="248.0" mnemonicParsing="false" onMouseClicked="#reset" text="Reset" />
    <Button layoutX="14.0" layoutY="310.0" mnemonicParsing="false" onMouseClicked="#pauseTimeline" text="Pause" />
+   <Button layoutX="8.0" layoutY="563.0" mnemonicParsing="false" onMouseClicked="#backHome" text="Back" />
    <padding>
       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
    </padding>

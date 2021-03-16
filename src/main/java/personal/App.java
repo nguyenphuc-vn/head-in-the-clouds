@@ -21,7 +21,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("maze"), MAX_WIDTH, MAX_HEIGHT);
+        scene = new Scene(loadFXML("app"), MAX_WIDTH, MAX_HEIGHT);
         stage.setScene(scene);
         stage.setTitle("HEAD IN THE CLOUDS");
         stage.setResizable(false);

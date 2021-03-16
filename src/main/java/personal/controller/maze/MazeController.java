@@ -2,11 +2,7 @@ package personal.controller.maze;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
-import javafx.stage.Stage;
 import personal.App;
 import personal.helper.maze.Maze;
 
@@ -30,11 +26,9 @@ public class MazeController implements Initializable {
     public void draw(){
         maze.drawTheLine();
 
-
     }
     @FXML
     public void pauseTimeline()  {
-
         maze.pauseTimeline();
 
     }
@@ -47,7 +41,10 @@ public class MazeController implements Initializable {
         maze = new Maze();
         maze.setUpGc(canvas);
         maze.draw();
-
+    }
+    @FXML
+    private void backHome() throws IOException {
+        App.switchBackHome();
     }
 
 

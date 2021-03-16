@@ -15,19 +15,29 @@ import java.util.ResourceBundle;
 
 public class AppController implements Initializable {
         private final static String quoteImage ="Quote.png";
+        private final static String mazeImage  ="maze.png" ;
 
         @FXML
-        private Ellipse ellipse;
+        private Ellipse ellipseQ;
+        @FXML
+        private Ellipse ellipseM;
 
         @Override
         public void initialize(URL location, ResourceBundle resources) {
 
-            setImage(ellipse,getPath(quoteImage));
+            setImage(ellipseQ,getPath(quoteImage));
+            setImage(ellipseM,getPath(mazeImage));
+
         }
         @FXML
         public void switchQuote() throws IOException {
             App.setRoot("quote");
         }
+        @FXML
+        public void switchMaze() throws IOException {
+            App.setRoot("maze");
+        }
+
 
 
 
