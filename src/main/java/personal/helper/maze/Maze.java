@@ -1,154 +1,225 @@
 package personal.helper.maze;
 
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import javafx.util.Duration;
 import personal.model.maze.Cell;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.*;
 
+/**
+ *
+ */
 public class Maze {
     private final static Logger LOGGER = Logger.getLogger(Maze.class.getName());
+    private Stack<Cell> store;//Store visited cell(x,y)
+    private GraphicsContext gc;// for drawing
+    private Cell[][] grids;//every cell is a cell
+    private Cell root;// to track the current cell
+    private Timeline timeline;
+    int num=0;
 
-    private GraphicsContext gc;
-    private Cell[][] grids;
-    //private boolean[][] visited;
-    private Cell root;
-    //private Stack<Cell> store;
-
-    public void setUp() {
+    /**
+     * base setup
+     */
+    public Maze(){
         grids = new Cell[Cell.getRow()][Cell.getCol()];
-        //visited = new boolean[Cell.getRow()][Cell.getCol()];
-        //store = new Stack<>();
+        store = new Stack<>();
         for (int rows = 0; rows < grids.length; rows++) {
             for (int cols = 0; cols < grids[0].length; cols++) {
                 grids[rows][cols] = new Cell(rows, cols);
-
             }
         }
         //Choose the initial cell,
-        // mark it as visited and push it to the stack
+        //push it to the stack
         root = grids[0][0];
-        root.setVisited();
-        //store.push(root);
+        store.push(root);
 
     }
-
 
     public void setUpGc(Canvas canvas) {
         gc = canvas.getGraphicsContext2D();
+        gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
         gc.setFill(Color.DARKSEAGREEN);
         gc.setLineWidth(1);
+        gc.setStroke(Color.WHITE);
+        gc.setGlobalAlpha(200);
+
 
     }
-
+    // draw 4 lines : rectangle shape
     public void draw() {
-        for (int rows = 0; rows < grids.length; rows++) {
+        for (Cell[] grid : grids) {
             for (int cols = 0; cols < grids[0].length; cols++) {
-                grids[rows][cols].drawLine(gc);
+                grid[cols].drawLine(gc);
             }
         }
 
     }
 
-    public void run() {
-        for (int rows = 0; rows < grids.length; rows++) {
-            for (int cols = 0; cols < grids[0].length; cols++) {
+    public void run()  {
+                    root.setVisited();
+                    //LOGGER.severe(root.toString());
+                //Pick random cell
                 Cell next = checkNeighbors();
                 if (next != null) {
-                    LOGGER.info(next.toString());
-                    next.setVisited();
-                    root.drawCell(gc);
+                   // LOGGER.info(next.toString());
+                    store.push(root);
+                    root.noWall(next);
+                    //root.drawLine(gc);
                     root = next;
-              }
-            }
+                    //LOGGER.info("root=next: "+root.toString());
+
+               }
+                else if(!store.empty()){
+                    root = store.pop();
+                    //int rd = getRandom(store.size());
+                   // root = store.elementAt(rd);
+                   // store.removeElementAt(rd);
+                   // LOGGER.info("popped "+root.toString());
+                }
+
+
+               // LOGGER.info("in stack remains : "+ store.size());
         }
+    public void drawTheLine(){
+        timeline = new Timeline();
+        timeline.getKeyFrames().add(new KeyFrame(Duration.millis(15),e->{
+            //root.currentColor(gc);
+            draw();
+            run();
+
+            if(store.empty()){
+                timeline.stop();
+                //LOGGER.info("DONE "+Cell.getCol()*Cell.getRow()+"store: "+ num);
+
+            }
+        }));
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
+
     }
 
+    public void pauseTimeline(){
+        timeline.jumpTo(Duration.ZERO);
+        timeline.stop();
+        LOGGER.info("PAUSE ");
+    }
+    public void reset(){
+        timeline.stop();
+        LOGGER.info("RESET");
+
+    }
+
+    /*
+     *                    -----------------
+     *                    !  top
+     *                    -----------------
+     *   ---------------  ---------------  --------------
+     *   !left            !current (r,c)!  right        !
+     *   ---------------  --------------- ---------------
+     *                    -----------------
+     *                    !bottom
+     *                    -----------------
+     */
     private Cell checkNeighbors(){
         List<Cell> neighbors = new ArrayList<>();
+        //Stack<Cell> neighbors = new Stack<>();
+        //Queue<Cell> neighbors = new ArrayDeque<>();
 
-        Cell top = checkTop(grids,root.getDimensionX(),root.getDimensionY());
-        Cell right = checkRight(grids,root.getDimensionX(),root.getDimensionY());
-        Cell bottom = checkBottom(grids,root.getDimensionX(), root.getDimensionY());
-        Cell left = checkLeft(grids,root.getDimensionX(),root.getDimensionY());
+        Cell top = checkTop(root.getDimensionX(),root.getDimensionY());
+
+        Cell right = checkRight(root.getDimensionX(),root.getDimensionY());
+
+        Cell bottom = checkBottom(root.getDimensionX(),root.getDimensionY());
+
+        Cell left = checkLeft(root.getDimensionX(),root.getDimensionY());
 
 
-        if(top!=null&&!top.isVisited()){
+        //START CHECK
+        /*
+                Check edge cases and if cell hasnt visited yet
+                push it in List
+         */
+        if(top!=null&& top.isVisited()){
             neighbors.add(top);
+            //neighbors.push(top);
             //LOGGER.info(top.toString());
+            //neighbors.offer(top);
         }
-        if(right!=null&&!right.isVisited()){
+        if(right!=null&& right.isVisited()){
             neighbors.add(right);
+            //neighbors.push(right);
+            //neighbors.offer(right);
             //LOGGER.info(right.toString());
         }
-        if(bottom!=null&&!bottom.isVisited()){
+        if(bottom!=null&& bottom.isVisited()){
             neighbors.add(bottom);
+            //neighbors.push(bottom);
+            //neighbors.offer(bottom);
             // LOGGER.info(bottom.toString());
         }
-        if(left!=null&&!left.isVisited()){
+        if(left!=null&& left.isVisited()){
             neighbors.add(left);
+            //neighbors.push(left);
+            //neighbors.offer(left);
             //LOGGER.info(left.toString());
         }
+        //END CHECK
 
+        //Get unvisited
         if(neighbors.size()>0){
-            int random = Math.abs(ThreadLocalRandom.current().nextInt(0,neighbors.size()));
-            return neighbors.get(random);
+            return neighbors.get(getRandom(neighbors.size()));
+            //return neighbors.get(0);
+
+        }else
+        return null;
+    }
+
+    private int getRandom(int num){
+        return Math.round(ThreadLocalRandom.current().nextInt(0,num));
+    }
+
+    private Cell checkTop(int row,int col){
+        if(withinGrid(row,col-1)){
+            return grids[row][col-1];
         }
         return null;
     }
-    private Cell checkTop(Cell [][] grids,int row,int col){
-        if(withinGrid(row-1,col)){
-            return grids[row-1][col];
-        }
-        else return null;
-    }
-    private Cell checkRight(Cell [][] grids,int row,int col){
-        if(withinGrid(row,col+1)){
-            return grids[row][col+1];
-        }
-        else return null;
-    }
-    private Cell checkBottom(Cell [][] grids,int row,int col){
+    private Cell checkRight(int row,int col){
         if(withinGrid(row+1,col)){
             return grids[row+1][col];
         }
-        else return null;
+        return null;
     }
-    private Cell checkLeft(Cell [][] grids,int row,int col){
+    private Cell checkBottom(int row,int col){
         if(withinGrid(row,col+1)){
             return grids[row][col+1];
         }
-        else return null;
+        return null;
+    }
+    private Cell checkLeft(int row,int col){
+        if(withinGrid(row-1,col)){
+            return grids[row-1][col];
+        }
+        return null;
     }
     private boolean withinGrid(int row, int col) {
 
         if ((row < 0) || (col < 0)) {
             return false;
         }
-        if ((col >= Cell.getCol()) || (row >= Cell.getRow())) {
-            return false;
-        }
-        return true;
+        return (col <= Cell.getCol() - 1) && (row <= Cell.getRow() - 1);
     }
 
 }
-    /*
-     *            ---------
-     *            !  top  !
-     *            ---------
-     *   -------  ---------  -------
-     *   !left !  !current!  !right!
-     *   -------  ---------  -------
-     *            ---------
-     *            !bottom !
-     *            ---------
-     */
+
     /*private Cell checkNext(){
         int row = root.getDimensionX();
         int col = root.getDimensionY();
@@ -218,7 +289,87 @@ public class Maze {
         return cols;
     }*/
 
+ /*private void putItInStack() throws InterruptedException {
+        //While the stack is not empty
+        while (!store.empty()){
+            Thread.sleep(200);
+            //Pop a cell from the stack and make it a current cell
+            root = store.pop();
+            Cell next = checkNeighbors();
+            //If the current cell has any neighbours which have not been visited
+            if(next!=null){
+                LOGGER.info(next.toString());
+                //Push the current cell to the stack
+                store.push(root);
+                //Choose one of the unvisited neighbours
+                //Remove the wall between the current cell and the chosen cell
+                root.noWall(next);
+                root.drawLine(gc);
+                root.removeRec(gc);
+                //Mark the chosen cell as visited and push it to the stack
+                next.setVisited();
+                store.push(next);
+                root = next;
+            }
+        }
+    }*/
+ /* Cell rightTop = checkRightTop(root.getDimensionX(),root.getDimensionY());
+
+        Cell rightBottom = checkRightBottom(root.getDimensionX(),root.getDimensionY());
+
+        Cell leftTop = checkLeftTop(root.getDimensionX(),root.getDimensionY());
+
+        Cell leftBottom = checkLeftBottom(root.getDimensionX(),root.getDimensionY());
 
 
+if(rightTop!=null&&!rightTop.isVisited()){
+        neighbors.add(rightTop);
+        //neighbors.push(left);
+        //neighbors.offer(left);
+        //LOGGER.info(left.toString());
+        }
 
+        if(leftTop!=null&&!leftTop.isVisited()){
+        neighbors.add(leftTop);
+        //neighbors.push(left);
+        //neighbors.offer(left);
+        //LOGGER.info(left.toString());
+        }
 
+        if(leftBottom!=null&&!leftBottom.isVisited()){
+        neighbors.add(leftBottom);
+        //neighbors.push(left);
+        //neighbors.offer(left);
+        //LOGGER.info(left.toString());
+        }
+        if(rightBottom!=null&&!rightBottom.isVisited()){
+        neighbors.add(rightBottom);
+        //neighbors.push(left);
+        //neighbors.offer(left);
+        //LOGGER.info(left.toString());
+        }
+private Cell checkLeftBottom(int row, int col){
+        if(withinGrid(row+1,col-1)){
+        return grids[row+1][col-1];
+        }
+        return null;
+        }
+private Cell checkLeftTop(int row, int col){
+        if(withinGrid(row-1,col-1)){
+        return grids[row-1][col-1];
+        }
+        return null;
+        }
+private Cell checkRightTop(int row, int col){
+        if(withinGrid(row-1,col+1)){
+        return grids[row-1][col+1];
+        }
+        return null;
+        }
+private Cell checkRightBottom(int row, int col){
+        if(withinGrid(row+1,col+1)){
+        return grids[row+1][col+1];
+        }
+        return null;
+
+  }*/

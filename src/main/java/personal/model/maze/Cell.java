@@ -3,21 +3,93 @@ package personal.model.maze;
 
 import javafx.scene.canvas.GraphicsContext;
 
+
 public class Cell {
-    private final static int wall = 20;
+    public final static int wall = 20;
     private final static int WIDTH =800;
     private final static int HEIGHT =600;
     private int dimensionX;
     private int dimensionY;
     private boolean isVisited;
-    private boolean[] walls = {true,true,true,true};
-
-
+    //private boolean top,right,bottom,left;
+    private final boolean[] walls = {true,true,true,true};
 
     public Cell(int dimensionX, int dimensionY) {
         this.dimensionX = dimensionX;
         this.dimensionY = dimensionY;
     }
+
+    public void drawLine(GraphicsContext gc){
+        int xWall = xMulWall()+wall;
+        int yWall = yMulWall()+wall;
+
+        /*
+          TOP
+          ------
+         */
+
+        if(walls[0]) {
+            gc.strokeLine(xMulWall(), yMulWall(),xWall, yMulWall());
+
+        }
+
+        /*
+               |
+               |
+           RIGHT
+         */
+        if(walls[1]){
+            gc.strokeLine(xWall, yMulWall(),xWall,yWall);
+        }
+
+
+        /*
+          ------
+          BOTTOM
+         */
+        if(walls[2]) {
+            gc.strokeLine(xWall,yWall,xMulWall(),yWall);
+        }
+
+
+        /*
+          |
+          |
+          LEFT
+         */
+        if(walls[3]) {
+            gc.strokeLine(xMulWall(), yWall, xMulWall(), yMulWall());
+        }
+
+        if(this.isVisited) {
+           gc.fillRect(xMulWall(),yMulWall(), wall+2, wall+2);
+        }
+
+    }
+
+    public void noWall(Cell next){
+
+         int posX = this.dimensionX-next.dimensionX;
+
+         if(posX ==1){
+             walls[3] = false;
+             next.walls[1] = false;
+         }else if(posX==-1){
+             walls[1] = false;
+             next.walls[3] = false;
+         }
+
+        int posY = this.dimensionY-next.dimensionY;
+         if(posY==1){
+             walls[0] = false;
+             next.walls[2] = false;
+         }else if(posY ==-1){
+             walls[2] = false;
+             next.walls[0] = false;
+         }
+
+    }
+
     public static int getCol() {
         return Math.abs(HEIGHT/wall);
     }
@@ -33,16 +105,23 @@ public class Cell {
         return dimensionY;
     }
 
+    /**
+     *
+     * @return Int Position Cell ( DimensionX * Wall ,?)
+     */
     public int xMulWall() {
         return dimensionX*wall;
     }
-
+    /**
+     *
+     * @return Int Position Cell( ?, DimensionY * Wall)
+     */
     public int yMulWall() {
         return dimensionY*wall;
     }
 
     public boolean isVisited() {
-        return isVisited;
+        return !isVisited;
     }
 
     public void setVisited() {
@@ -57,49 +136,9 @@ public class Cell {
                 ", isVisited=" + isVisited +
                 '}';
     }
-
-    public void drawLine(GraphicsContext gc){
-        int xWall = xMulWall()+wall;
-        int yWall = yMulWall()+wall;
-        /*
-          TOP
-          ------
-         */
-        if(this.walls[0]) {
-            gc.strokeLine(xMulWall(), yMulWall(),xWall, yMulWall());
-        }
-        /*
-               |
-               |
-           RIGHT
-         */
-        if(this.walls[1]){
-            gc.strokeLine(xWall, yMulWall(),xWall,yWall);
-        }
-
-
-        /*
-          ------
-          BOTTOM
-         */
-        if(this.walls[2]) {
-            gc.strokeLine(xMulWall(),yWall,xWall,yWall);
-        }
-        /*
-          |
-          |
-          LEFT
-         */
-        if(this.walls[3]) {
-            gc.strokeLine(xMulWall(), yMulWall(), xMulWall(),yWall);
-        }
-        drawCell(gc);
-    }
-    public void drawCell(GraphicsContext gc){
-        if(this.isVisited) {
-            gc.fillRect(xMulWall(),yMulWall(), wall, wall);
-        }
-    }
-
-
 }
+    /*public void removeRec(GraphicsContext gc){
+        int previousX = xMulWall();
+        int previousY = yMulWall();
+        gc.clearRect(previousX, previousY, wall - Maze.STROKEWIDTH, wall - Maze.STROKEWIDTH);
+    }*/

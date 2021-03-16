@@ -3,9 +3,10 @@ package personal.controller.maze;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
+import personal.App;
 import personal.helper.maze.Maze;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -15,17 +16,36 @@ public class MazeController implements Initializable {
     private Canvas canvas;
 
 
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        maze = new Maze();
-        maze.setUp();
-        maze.setUpGc(canvas);
-        maze.draw();
+        setup();
 
     }
     @FXML
     public void draw(){
-        maze.run();
+        maze.drawTheLine();
 
     }
+    @FXML
+    public void pauseTimeline()  {
+        maze.pauseTimeline();
+
+    }
+    @FXML
+    public void reset(){
+        maze.reset();
+        setup();
+    }
+    private void setup(){
+        maze = new Maze();
+        maze.setUpGc(canvas);
+        maze.draw();
+    }
+    @FXML
+    private void backHome() throws IOException {
+        App.switchBackHome();
+    }
+
+
 }

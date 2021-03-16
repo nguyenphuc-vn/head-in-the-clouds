@@ -18,9 +18,10 @@ public class App extends Application {
     private final static int MAX_HEIGHT = 610;
     private static Scene scene;
 
+
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("maze"), MAX_WIDTH, MAX_HEIGHT);
+        scene = new Scene(loadFXML("app"), MAX_WIDTH, MAX_HEIGHT);
         stage.setScene(scene);
         stage.setTitle("HEAD IN THE CLOUDS");
         stage.setResizable(false);
@@ -39,6 +40,7 @@ public class App extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/personal/view/"+fxml + ".fxml"));
         return fxmlLoader.load();
     }
+
 
     public static void main(String[] args) {
         launch();
