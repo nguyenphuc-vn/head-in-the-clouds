@@ -13,6 +13,8 @@ module personal {
     exports personal.model.quote;
     opens personal.controller.quote to javafx.fxml;
     exports personal.controller.quote;
+    opens personal.controller.maze to javafx.fxml;
+    exports personal.controller.maze;
 
 
 }
