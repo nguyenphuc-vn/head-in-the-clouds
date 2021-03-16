@@ -3,8 +3,6 @@ package personal.model.maze;
 
 import javafx.scene.canvas.GraphicsContext;
 
-import java.util.Stack;
-
 public class Cell {
     private final static int wall = 20;
     private final static int WIDTH =800;
@@ -27,12 +25,19 @@ public class Cell {
         return Math.abs(WIDTH/wall);
     }
 
-
     public int getDimensionX() {
-        return dimensionX*wall;
+        return dimensionX;
     }
 
     public int getDimensionY() {
+        return dimensionY;
+    }
+
+    public int xMulWall() {
+        return dimensionX*wall;
+    }
+
+    public int yMulWall() {
         return dimensionY*wall;
     }
 
@@ -44,15 +49,24 @@ public class Cell {
         this.isVisited = true;
     }
 
+    @Override
+    public String toString() {
+        return "Cell{" +
+                "dimensionX=" + dimensionX +
+                ", dimensionY=" + dimensionY +
+                ", isVisited=" + isVisited +
+                '}';
+    }
+
     public void drawLine(GraphicsContext gc){
-        int xWall = getDimensionX()+wall;
-        int yWall = getDimensionY()+wall;
+        int xWall = xMulWall()+wall;
+        int yWall = yMulWall()+wall;
         /*
           TOP
           ------
          */
         if(this.walls[0]) {
-            gc.strokeLine(getDimensionX(),getDimensionY(),xWall,getDimensionY());
+            gc.strokeLine(xMulWall(), yMulWall(),xWall, yMulWall());
         }
         /*
                |
@@ -60,7 +74,7 @@ public class Cell {
            RIGHT
          */
         if(this.walls[1]){
-            gc.strokeLine(xWall,getDimensionY(),xWall,yWall);
+            gc.strokeLine(xWall, yMulWall(),xWall,yWall);
         }
 
 
@@ -69,7 +83,7 @@ public class Cell {
           BOTTOM
          */
         if(this.walls[2]) {
-            gc.strokeLine(getDimensionX(),yWall,xWall,yWall);
+            gc.strokeLine(xMulWall(),yWall,xWall,yWall);
         }
         /*
           |
@@ -77,27 +91,15 @@ public class Cell {
           LEFT
          */
         if(this.walls[3]) {
-            gc.strokeLine(getDimensionX(),getDimensionY(),getDimensionX(),yWall);
+            gc.strokeLine(xMulWall(), yMulWall(), xMulWall(),yWall);
         }
-        if(this.isVisited) {
-            gc.fillRect(xWall,yWall, wall, wall);
-
-        }
-
+        drawCell(gc);
     }
-
-    /*
-     *            ---------
-     *            !  top  !
-     *            ---------
-     *   -------  ---------  -------
-     *   !left !  !current!  !right!
-     *   -------  ---------  -------
-     *            ---------
-     *            !bottom !
-     *            ---------
-     */
-
+    public void drawCell(GraphicsContext gc){
+        if(this.isVisited) {
+            gc.fillRect(xMulWall(),yMulWall(), wall, wall);
+        }
+    }
 
 
 }
