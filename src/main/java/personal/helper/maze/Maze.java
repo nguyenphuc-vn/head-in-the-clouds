@@ -1,9 +1,12 @@
 package personal.helper.maze;
 
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import javafx.util.Duration;
 import personal.model.maze.Cell;
 
 import java.util.ArrayList;
@@ -21,7 +24,7 @@ public class Maze {
     private Cell root;
     //private Stack<Cell> store;
 
-    public void setUp() {
+    public Maze(){
         grids = new Cell[Cell.getRow()][Cell.getCol()];
         //visited = new boolean[Cell.getRow()][Cell.getCol()];
         //store = new Stack<>();
@@ -36,9 +39,7 @@ public class Maze {
         root = grids[0][0];
         root.setVisited();
         //store.push(root);
-
     }
-
 
     public void setUpGc(Canvas canvas) {
         gc = canvas.getGraphicsContext2D();
@@ -57,19 +58,34 @@ public class Maze {
     }
 
     public void run() {
-        for (int rows = 0; rows < grids.length; rows++) {
-            for (int cols = 0; cols < grids[0].length; cols++) {
+
                 Cell next = checkNeighbors();
                 if (next != null) {
                     LOGGER.info(next.toString());
                     next.setVisited();
                     root.drawCell(gc);
                     root = next;
-              }
-            }
+               }
         }
+    public void drawTheLine(){
+        Timeline timeline = new Timeline();
+        timeline.getKeyFrames().add(new KeyFrame(Duration.millis(100),e->{
+            run();
+        }));
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
     }
-
+    /*
+     *                    -----------------
+     *                    !  top (r-1,c)  !
+     *                    -----------------
+     *   ---------------  ---------------  ---------------
+     *   !left (r,c-1) !  !current (r,c)!  !right (r, c+1!
+     *   ---------------  --------------- ---------------
+     *                    -----------------
+     *                    !bottom (r+1,c) !
+     *                    -----------------
+     */
     private Cell checkNeighbors(){
         List<Cell> neighbors = new ArrayList<>();
 
@@ -138,17 +154,7 @@ public class Maze {
     }
 
 }
-    /*
-     *            ---------
-     *            !  top  !
-     *            ---------
-     *   -------  ---------  -------
-     *   !left !  !current!  !right!
-     *   -------  ---------  -------
-     *            ---------
-     *            !bottom !
-     *            ---------
-     */
+
     /*private Cell checkNext(){
         int row = root.getDimensionX();
         int col = root.getDimensionY();

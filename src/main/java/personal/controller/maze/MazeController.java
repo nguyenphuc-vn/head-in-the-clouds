@@ -18,14 +18,13 @@ public class MazeController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         maze = new Maze();
-        maze.setUp();
         maze.setUpGc(canvas);
         maze.draw();
 
     }
     @FXML
     public void draw(){
-        maze.run();
+        maze.drawTheLine();
 
     }
 }
