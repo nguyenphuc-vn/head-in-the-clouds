@@ -8,7 +8,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import personal.model.maze.Cell;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
@@ -16,18 +15,18 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.*;
 
 public class Maze {
+    public final static int STROKEWIDTH =1;
     private final static Logger LOGGER = Logger.getLogger(Maze.class.getName());
 
     private GraphicsContext gc;
     private Cell[][] grids;
-    //private boolean[][] visited;
     private Cell root;
-    //private Stack<Cell> store;
+    private Stack<Cell> store;
+    private Timeline timeline;
 
     public Maze(){
         grids = new Cell[Cell.getRow()][Cell.getCol()];
-        //visited = new boolean[Cell.getRow()][Cell.getCol()];
-        //store = new Stack<>();
+        store = new Stack<>();
         for (int rows = 0; rows < grids.length; rows++) {
             for (int cols = 0; cols < grids[0].length; cols++) {
                 grids[rows][cols] = new Cell(rows, cols);
@@ -36,15 +35,18 @@ public class Maze {
         }
         //Choose the initial cell,
         // mark it as visited and push it to the stack
+        //int randomX = getRandom(Cell.getRow());
+        //int randomY = getRandom(Cell.getCol());
         root = grids[0][0];
         root.setVisited();
-        //store.push(root);
+        store.push(root);
     }
 
     public void setUpGc(Canvas canvas) {
         gc = canvas.getGraphicsContext2D();
         gc.setFill(Color.DARKSEAGREEN);
-        gc.setLineWidth(1);
+        gc.setLineWidth(STROKEWIDTH);
+        gc.setStroke(Color.WHEAT);
 
     }
 
@@ -52,29 +54,85 @@ public class Maze {
         for (int rows = 0; rows < grids.length; rows++) {
             for (int cols = 0; cols < grids[0].length; cols++) {
                 grids[rows][cols].drawLine(gc);
+
             }
         }
 
     }
+    private int getRandom(int num){
+       return Math.abs(ThreadLocalRandom.current().nextInt(0,num));
+    }
 
-    public void run() {
 
+    public void run()  {
+                //Pick random cell
                 Cell next = checkNeighbors();
                 if (next != null) {
                     LOGGER.info(next.toString());
+                    store.push(root);
                     next.setVisited();
-                    root.drawCell(gc);
+                    //root.noWall(next);
+                    root.removeRec(gc);
                     root = next;
                }
+                else if(!store.empty()){
+                    int rd = getRandom(store.size());
+                    root = store.elementAt(rd);
+                    store.remove(rd);
+                }
+                LOGGER.info("in stack remains : "+ store.size());
         }
     public void drawTheLine(){
-        Timeline timeline = new Timeline();
-        timeline.getKeyFrames().add(new KeyFrame(Duration.millis(100),e->{
+        timeline = new Timeline();
+        timeline.getKeyFrames().add(new KeyFrame(Duration.millis(20),e->{
+            //draw();
             run();
+            if(store.empty()){
+
+                timeline.stop();
+                LOGGER.info("DONE");
+
+            }
         }));
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
+
+
     }
+    public void pauseTimeline(){
+        timeline.jumpTo(Duration.ZERO);
+        timeline.stop();
+        LOGGER.info("PAUSE ");
+    }
+    public void reset(){
+        timeline.stop();
+        LOGGER.info("RESET");
+
+    }
+    /*private void putItInStack() throws InterruptedException {
+        //While the stack is not empty
+        while (!store.empty()){
+            Thread.sleep(200);
+            //Pop a cell from the stack and make it a current cell
+            root = store.pop();
+            Cell next = checkNeighbors();
+            //If the current cell has any neighbours which have not been visited
+            if(next!=null){
+                LOGGER.info(next.toString());
+                //Push the current cell to the stack
+                store.push(root);
+                //Choose one of the unvisited neighbours
+                //Remove the wall between the current cell and the chosen cell
+                root.noWall(next);
+                root.drawLine(gc);
+                root.removeRec(gc);
+                //Mark the chosen cell as visited and push it to the stack
+                next.setVisited();
+                store.push(next);
+                root = next;
+            }
+        }
+    }*/
     /*
      *                    -----------------
      *                    !  top (r-1,c)  !
@@ -88,13 +146,15 @@ public class Maze {
      */
     private Cell checkNeighbors(){
         List<Cell> neighbors = new ArrayList<>();
-
         Cell top = checkTop(grids,root.getDimensionX(),root.getDimensionY());
         Cell right = checkRight(grids,root.getDimensionX(),root.getDimensionY());
         Cell bottom = checkBottom(grids,root.getDimensionX(), root.getDimensionY());
         Cell left = checkLeft(grids,root.getDimensionX(),root.getDimensionY());
-
-
+        //START CHECK
+        /*
+                Check edge cases and if cell hasnt visited yet
+                push it in List
+         */
         if(top!=null&&!top.isVisited()){
             neighbors.add(top);
             //LOGGER.info(top.toString());
@@ -111,9 +171,10 @@ public class Maze {
             neighbors.add(left);
             //LOGGER.info(left.toString());
         }
+        //END CHECK
 
         if(neighbors.size()>0){
-            int random = Math.abs(ThreadLocalRandom.current().nextInt(0,neighbors.size()));
+            int random = getRandom(neighbors.size());
             return neighbors.get(random);
         }
         return null;
