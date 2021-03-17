@@ -53,18 +53,26 @@ public class Maze {
 
 
     }
-    // draw 4 lines : rectangle shape
+    /**
+     * draw 4 lines : rectangle shape
+     *  Rows x Cols cell
+     */
     public void draw() {
         for (Cell[] grid : grids) {
             for (int cols = 0; cols < grids[0].length; cols++) {
-
                 grid[cols].drawLine(gc);
             }
         }
 
     }
 
-    public void run()  {
+    /**
+     * Find the next potential candidate
+     * if next is a thing then push the current Cell back into Stack
+     * then compare current and next cell using this {@link Cell#noWall} .
+     * If not pop one from Stack LIFO
+     */
+    public void findNext()  {
                     root.setVisited();
                 //LOGGER.severe(root.toString());
                 //Pick random cell
@@ -84,22 +92,19 @@ public class Maze {
                    // store.removeElementAt(rd);
                    // LOGGER.info("popped "+root.toString());
                 }
-
-
                // LOGGER.info("in stack remains : "+ store.size());
         }
 
-
+    /**
+     * Call {@link Maze#draw} && {@link Maze#findNext} until there's nothing left in Stack
+     */
     public void drawTheLine(){
         timeline = new Timeline();
         timeline.getKeyFrames().add(new KeyFrame(Duration.millis(30),e->{
             //root.currentColor(gc);
             root.currentDot(gc);
             draw();
-
-            run();
-
-
+            findNext();
             if(store.empty()){
                 timeline.stop();
                 //LOGGER.info("DONE "+Cell.getCol()*Cell.getRow()+"store: "+ num);
@@ -138,19 +143,20 @@ public class Maze {
         //Stack<Cell> neighbors = new Stack<>();
         //Queue<Cell> neighbors = new ArrayDeque<>();
 
-        Cell top = checkTop(root.getDimensionX(),root.getDimensionY());
+        Cell top    = checkTop(root.getDimensionX(),root.getDimensionY());
 
-        Cell right = checkRight(root.getDimensionX(),root.getDimensionY());
+        Cell right  = checkRight(root.getDimensionX(),root.getDimensionY());
 
         Cell bottom = checkBottom(root.getDimensionX(),root.getDimensionY());
 
-        Cell left = checkLeft(root.getDimensionX(),root.getDimensionY());
+        Cell left   = checkLeft(root.getDimensionX(),root.getDimensionY());
 
 
         //START CHECK
         /*
                 Check edge cases and if cell hasnt visited yet
                 push it in List
+                check null first otherwise Null exception
          */
         if(top!=null&& top.isVisited()){
             neighbors.add(top);
@@ -216,6 +222,11 @@ public class Maze {
         return null;
     }
 
+    /**
+     * @param row current X
+     * @param col current Y
+     * @return false if out of range
+     */
     private boolean withinGrid(int row, int col) {
 
         if ((row < 0) || (col < 0)) {
