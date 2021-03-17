@@ -23,7 +23,7 @@ public class Maze {
     private Cell[][] grids;//every cell is a cell
     private Cell root;// to track the current cell
     private Timeline timeline;
-    int num=0;
+    //int num=0;
 
     /**
      * base setup
@@ -57,6 +57,7 @@ public class Maze {
     public void draw() {
         for (Cell[] grid : grids) {
             for (int cols = 0; cols < grids[0].length; cols++) {
+
                 grid[cols].drawLine(gc);
             }
         }
@@ -65,7 +66,7 @@ public class Maze {
 
     public void run()  {
                     root.setVisited();
-                    //LOGGER.severe(root.toString());
+                //LOGGER.severe(root.toString());
                 //Pick random cell
                 Cell next = checkNeighbors();
                 if (next != null) {
@@ -75,7 +76,6 @@ public class Maze {
                     //root.drawLine(gc);
                     root = next;
                     //LOGGER.info("root=next: "+root.toString());
-
                }
                 else if(!store.empty()){
                     root = store.pop();
@@ -88,12 +88,17 @@ public class Maze {
 
                // LOGGER.info("in stack remains : "+ store.size());
         }
+
+
     public void drawTheLine(){
         timeline = new Timeline();
-        timeline.getKeyFrames().add(new KeyFrame(Duration.millis(15),e->{
+        timeline.getKeyFrames().add(new KeyFrame(Duration.millis(30),e->{
             //root.currentColor(gc);
+            root.currentDot(gc);
             draw();
+
             run();
+
 
             if(store.empty()){
                 timeline.stop();
@@ -210,6 +215,7 @@ public class Maze {
         }
         return null;
     }
+
     private boolean withinGrid(int row, int col) {
 
         if ((row < 0) || (col < 0)) {

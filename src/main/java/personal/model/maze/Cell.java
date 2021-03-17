@@ -2,6 +2,7 @@ package personal.model.maze;
 
 
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 
 
 public class Cell {
@@ -62,9 +63,14 @@ public class Cell {
         }
 
         if(this.isVisited) {
+           gc.setFill(Color.DARKSEAGREEN);
            gc.fillRect(xMulWall(),yMulWall(), wall+2, wall+2);
         }
 
+    }
+    public void currentDot(GraphicsContext gc){
+        gc.setFill(Color.WHITESMOKE);
+        gc.fillRect(xMulWall(),yMulWall(), wall+2, wall+2);
     }
 
     public void noWall(Cell next){
