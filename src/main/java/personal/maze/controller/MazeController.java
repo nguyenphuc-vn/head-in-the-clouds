@@ -13,22 +13,26 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ *Control the UI maze
+ *process input
+ */
 public class MazeController implements Initializable {
     private Maze maze;
-    private int wall;
-    private int speed;
+    private int wall; // input wall
+    private int speed;// input speed
     @FXML
     private Button runButton;
     @FXML
     private Button setButton;
     @FXML
-    private Label wLabel;
+    private Label wallLabel;
     @FXML
-    private Label sLabel;
+    private Label speedLabel;
     @FXML
-    private ComboBox<String> wCombo;
+    private ComboBox<String> wallCombo;
     @FXML
-    private ComboBox<String> sCombo;
+    private ComboBox<String> speedCombo;
     @FXML
     private Canvas canvas;
 
@@ -42,18 +46,35 @@ public class MazeController implements Initializable {
 
 
     }
+
+    /**
+     * Run button
+     * Call {@link Maze#drawTheLine()}
+     */
     @FXML
     public void draw(){
         runButton.setDisable(true);
         maze.drawTheLine();
 
     }
+
+    /**
+     * Pause button
+     * call {@link Maze#pauseTimeline()}
+     * set speed = 0;
+     */
     @FXML
     public void pauseTimeline(){
        runButton.setDisable(false);
         maze.pauseTimeline();
 
     }
+
+    /**
+     * set new state
+     * call {@link Maze#reset()}
+     * && {@link MazeController#setup()} set things up again
+     */
     @FXML
     public void reset(){
         runButton.setDisable(false);
@@ -62,12 +83,22 @@ public class MazeController implements Initializable {
         setup();
 
     }
+
+    /**
+     * Confirm button speed and wall value
+     */
     @FXML
     private void set(){
         setButton.setDisable(true);
         setup();
 
     }
+
+    /**
+     * new object  Maze
+     * call {@link Maze#setUpGc(Canvas)}
+     * && {@link Maze#draw()}
+     */
     private void setup(){
         maze = new Maze(wall, speed);
         maze.setUpGc(canvas);
@@ -79,14 +110,22 @@ public class MazeController implements Initializable {
         App.switchBackHome();
     }
 
+    /**
+     * Set value Wall combobox
+     * Make it dynamic , Bind label to it value
+     */
     private void wallBox(){
-        wCombo.getItems().setAll("8","10","20","40","60","100");
-        wLabel.textProperty().bind((wCombo.getSelectionModel().selectedItemProperty()));
-        wCombo.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> switchWall());
+        wallCombo.getItems().setAll("8","10","20","40","60","100");
+        wallLabel.textProperty().bind((wallCombo.getSelectionModel().selectedItemProperty()));
+        wallCombo.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> switchWall());
 
     }
+
+    /**
+     * switch case of wall
+     */
     private void switchWall(){
-        switch (wCombo.getValue()) {
+        switch (wallCombo.getValue()) {
             case "8" -> wall = 8;
             case "10" -> wall = 10;
             case "20" -> wall = 20;
@@ -95,14 +134,22 @@ public class MazeController implements Initializable {
             case "100" -> wall = 100;
         }
     }
+    /**
+     * Set value Speed combobox
+     * Make it dynamic , Bind label to it value
+     */
     private void speedBox(){
-            sCombo.getItems().setAll("x1", "x2", "x3");
-            sLabel.textProperty().bind(sCombo.getSelectionModel().selectedItemProperty());
-            sCombo.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> switchSpeed());
+            speedCombo.getItems().setAll("x1", "x2", "x3");
+            speedLabel.textProperty().bind(speedCombo.getSelectionModel().selectedItemProperty());
+            speedCombo.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> switchSpeed());
 
     }
+
+    /**
+     * switch case of speed
+     */
     private void switchSpeed(){
-        switch (sCombo.getValue()) {
+        switch (speedCombo.getValue()) {
             case "x1" -> speed = 60;
             case "x2" -> speed = 60 / 2;
             case "x3" -> speed = 60 / 3;

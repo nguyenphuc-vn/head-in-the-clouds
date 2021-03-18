@@ -14,7 +14,8 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.*;
 
 /**
- *
+ * Store each cell in 2d grid
+ * Check neighbors and backtrack the whole visited cell
  */
 public class Maze {
     private final static Logger LOGGER = Logger.getLogger(Maze.class.getName());
