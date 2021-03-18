@@ -80,7 +80,7 @@ public class MazeController implements Initializable {
     }
 
     private void wallBox(){
-        wCombo.getItems().setAll("8","10","20","40","50","100");
+        wCombo.getItems().setAll("8","10","20","40","60","100");
         wLabel.textProperty().bind((wCombo.getSelectionModel().selectedItemProperty()));
         wCombo.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> switchWall());
 
@@ -91,7 +91,7 @@ public class MazeController implements Initializable {
             case "10" -> wall = 10;
             case "20" -> wall = 20;
             case "40" -> wall = 40;
-            case "50" -> wall = 60;
+            case "60" -> wall = 60;
             case "100" -> wall = 100;
         }
     }
