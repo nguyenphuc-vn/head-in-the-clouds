@@ -1,12 +1,10 @@
 package personal.maze.controller;
 
 
-import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import personal.App;
@@ -20,10 +18,13 @@ public class MazeController implements Initializable {
     private int wall;
     private int speed;
     @FXML
+    private Button runButton;
+    @FXML
+    private Button setButton;
+    @FXML
     private Label wLabel;
     @FXML
     private Label sLabel;
-
     @FXML
     private ComboBox<String> wCombo;
     @FXML
@@ -39,25 +40,33 @@ public class MazeController implements Initializable {
         speedBox();
         setup();
 
+
     }
     @FXML
     public void draw(){
+        runButton.setDisable(true);
         maze.drawTheLine();
 
     }
     @FXML
-    public void pauseTimeline()  {
+    public void pauseTimeline(){
+       runButton.setDisable(false);
         maze.pauseTimeline();
 
     }
     @FXML
     public void reset(){
+        runButton.setDisable(false);
+        setButton.setDisable(false);
         maze.reset();
         setup();
+
     }
     @FXML
     private void set(){
+        setButton.setDisable(true);
         setup();
+
     }
     private void setup(){
         maze = new Maze(wall, speed);

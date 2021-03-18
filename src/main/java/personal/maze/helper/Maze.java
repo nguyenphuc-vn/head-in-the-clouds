@@ -50,7 +50,9 @@ public class Maze {
         }
         //Choose the initial cell,
         //push it to the stack
-        root = grids[0][0];
+        int row = getRandom(grids.length);
+        int col = getRandom(grids[0].length);
+        root = grids[row][col];
         store.push(root);
 
     }
