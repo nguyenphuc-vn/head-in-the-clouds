@@ -1,4 +1,4 @@
-package personal.model.maze;
+package  personal.maze.model;
 
 
 import javafx.scene.canvas.GraphicsContext;
@@ -6,9 +6,8 @@ import javafx.scene.paint.Color;
 
 
 public class Cell {
-    private final static int wall = 20;
-    private final static int WIDTH =800;
-    private final static int HEIGHT =600;
+    //private final static int wall = 20;
+
     private int dimensionX;
     private int dimensionY;
     private boolean isVisited;
@@ -24,9 +23,9 @@ public class Cell {
      *
      * @param gc drawing
      */
-    public void drawLine(GraphicsContext gc){
-        int xWall = xMulWall()+wall;
-        int yWall = yMulWall()+wall;
+    public void drawLine(GraphicsContext gc, int wall){
+        int xWall = xMulWall(wall)+wall;
+        int yWall = yMulWall(wall)+wall;
 
         /*
           TOP
@@ -34,7 +33,7 @@ public class Cell {
          */
 
         if(walls[0]) {
-            gc.strokeLine(xMulWall(), yMulWall(),xWall, yMulWall());
+            gc.strokeLine(xMulWall(wall), yMulWall(wall),xWall, yMulWall(wall));
 
         }
 
@@ -44,7 +43,7 @@ public class Cell {
            RIGHT
          */
         if(walls[1]){
-            gc.strokeLine(xWall, yMulWall(),xWall,yWall);
+            gc.strokeLine(xWall, yMulWall(wall),xWall,yWall);
         }
 
 
@@ -53,7 +52,7 @@ public class Cell {
           BOTTOM
          */
         if(walls[2]) {
-            gc.strokeLine(xWall,yWall,xMulWall(),yWall);
+            gc.strokeLine(xWall,yWall,xMulWall(wall),yWall);
         }
 
 
@@ -63,18 +62,18 @@ public class Cell {
           LEFT
          */
         if(walls[3]) {
-            gc.strokeLine(xMulWall(), yWall, xMulWall(), yMulWall());
+            gc.strokeLine(xMulWall(wall), yWall, xMulWall(wall), yMulWall(wall));
         }
 
         if(this.isVisited) {
            gc.setFill(Color.DARKSEAGREEN);
-           gc.fillRect(xMulWall(),yMulWall(), wall+2, wall+2);
+           gc.fillRect(xMulWall(wall),yMulWall(wall), wall+2, wall+2);
         }
 
     }
-    public void currentDot(GraphicsContext gc){
+    public void currentDot(GraphicsContext gc, int wall){
         gc.setFill(Color.WHITESMOKE);
-        gc.fillRect(xMulWall(),yMulWall(), wall+2, wall+2);
+        gc.fillRect(xMulWall(wall),yMulWall(wall), wall+2, wall+2);
     }
 
     /**
@@ -104,12 +103,7 @@ public class Cell {
 
     }
 
-    public static int getCol() {
-        return HEIGHT/wall;
-    }
-    public static int getRow() {
-        return WIDTH/wall;
-    }
+
 
     public int getDimensionX() {
         return dimensionX;
@@ -123,14 +117,14 @@ public class Cell {
      *
      * @return Int Position Cell ( DimensionX * Wall ,?)
      */
-    public int xMulWall() {
+    public int xMulWall(int wall) {
         return dimensionX*wall;
     }
     /**
      *
      * @return Int Position Cell( ?, DimensionY * Wall)
      */
-    public int yMulWall() {
+    public int yMulWall(int wall) {
         return dimensionY*wall;
     }
 

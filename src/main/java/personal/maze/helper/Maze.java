@@ -1,4 +1,4 @@
-package personal.helper.maze;
+package personal.maze.helper;
 
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -7,7 +7,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
-import personal.model.maze.Cell;
+import personal.maze.model.Cell;
 
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
@@ -18,18 +18,30 @@ import java.util.logging.*;
  */
 public class Maze {
     private final static Logger LOGGER = Logger.getLogger(Maze.class.getName());
+    private final static int WIDTH =800;
+    private final static int HEIGHT =600;
     private Stack<Cell> store;//Store visited cell(x,y)
     private GraphicsContext gc;// for drawing
     private Cell[][] grids;//every cell is a cell
     private Cell root;// to track the current cell
     private Timeline timeline;
-    //int num=0;
+    private int recWall;
+    private int speed;
 
+
+    private  int getCol() {
+        return HEIGHT/recWall;
+    }
+    private  int getRow() {
+        return WIDTH/recWall;
+    }
     /**
      * base setup
      */
-    public Maze(){
-        grids = new Cell[Cell.getRow()][Cell.getCol()];
+    public Maze(int recWall,int speed){
+        this.recWall = recWall;
+        this.speed = speed;
+        grids = new Cell[getRow()][getCol()];
         store = new Stack<>();
         for (int rows = 0; rows < grids.length; rows++) {
             for (int cols = 0; cols < grids[0].length; cols++) {
@@ -60,7 +72,7 @@ public class Maze {
     public void draw() {
         for (Cell[] grid : grids) {
             for (int cols = 0; cols < grids[0].length; cols++) {
-                grid[cols].drawLine(gc);
+                grid[cols].drawLine(gc,recWall);
             }
         }
 
@@ -100,9 +112,9 @@ public class Maze {
      */
     public void drawTheLine(){
         timeline = new Timeline();
-        timeline.getKeyFrames().add(new KeyFrame(Duration.millis(30),e->{
+        timeline.getKeyFrames().add(new KeyFrame(Duration.millis(speed),e->{
             //root.currentColor(gc);
-            root.currentDot(gc);
+            root.currentDot(gc,recWall);
             draw();
             findNext();
             if(store.empty()){
@@ -232,7 +244,7 @@ public class Maze {
         if ((row < 0) || (col < 0)) {
             return false;
         }
-        return (col <= Cell.getCol() - 1) && (row <= Cell.getRow() - 1);
+        return (col <= getCol() - 1) && (row <= getRow() - 1);
     }
 
 }

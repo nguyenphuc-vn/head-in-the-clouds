@@ -9,12 +9,14 @@ module personal {
 
     opens personal to javafx.fxml;
     exports personal;
-    opens personal.model.quote to com.google.gson;
-    exports personal.model.quote;
-    opens personal.controller.quote to javafx.fxml;
-    exports personal.controller.quote;
-    opens personal.controller.maze to javafx.fxml;
-    exports personal.controller.maze;
+    opens personal.quote.model to com.google.gson;
+    exports personal.quote.model;
+    opens personal.quote.controller to javafx.fxml;
+    exports personal.quote.controller;
+    opens personal.maze.controller to javafx.fxml;
+    exports personal.maze.controller;
+
+
 
 
 }

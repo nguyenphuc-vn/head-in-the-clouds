@@ -1,12 +1,14 @@
-package personal.helper.quote;
+package personal.quote;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import personal.model.quote.Quote;
-import personal.model.quote.TaylorSwiftDTO;
+
+import personal.quote.helper.IQuote;
+import personal.quote.helper.TaylorSwift;
+import personal.quote.model.Quote;
+import personal.quote.model.TaylorSwiftDTO;
 
 import static org.junit.jupiter.api.Assertions.*;
-
 class TaylorSwiftTest {
     IQuote iTaylor;
     Quote taylor;
