@@ -126,12 +126,12 @@ public class MazeController implements Initializable {
      */
     private void switchWall(){
         switch (wallCombo.getValue()) {
-            case "8" -> wall = 8;
-            case "10" -> wall = 10;
-            case "20" -> wall = 20;
-            case "40" -> wall = 40;
-            case "60" -> wall = 60;
-            case "100" -> wall = 100;
+            case "8" : wall = 8;break;
+            case "10" : wall = 10;break;
+            case "20" : wall = 20;break;
+            case "40" : wall = 40;break;
+            case "60" : wall = 60;break;
+            case "100" : wall = 100;break;
         }
     }
     /**
@@ -150,9 +150,9 @@ public class MazeController implements Initializable {
      */
     private void switchSpeed(){
         switch (speedCombo.getValue()) {
-            case "x1" -> speed = 60;
-            case "x2" -> speed = 60 / 2;
-            case "x3" -> speed = 60 / 3;
+            case "x1" : speed = 60 ;break;
+            case "x2" : speed = 60 / 2;break;
+            case "x3" : speed = 60 / 3;break;
         }
     }
 }
