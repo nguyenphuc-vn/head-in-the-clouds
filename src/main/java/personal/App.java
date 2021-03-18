@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -25,6 +26,7 @@ public class App extends Application {
         stage.setScene(scene);
         stage.setTitle("HEAD IN THE CLOUDS");
         stage.setResizable(false);
+        stage.getIcons().add(new Image(App.class.getResourceAsStream("/personal/images/clouds.jpg")));
         stage.show();
     }
 

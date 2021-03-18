@@ -4,10 +4,12 @@ package  personal.maze.model;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
-
+/**
+ * Demonstrate the cell position X anv Y.
+ * Check visited cell.
+ * Draw or not to draw a line between cells
+ */
 public class Cell {
-    //private final static int wall = 20;
-
     private int dimensionX;
     private int dimensionY;
     private boolean isVisited;
