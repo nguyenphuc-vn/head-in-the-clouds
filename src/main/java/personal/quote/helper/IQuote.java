@@ -1,4 +1,4 @@
-package personal.helper.quote;
+package personal.quote.helper;
 
 
 public interface IQuote {

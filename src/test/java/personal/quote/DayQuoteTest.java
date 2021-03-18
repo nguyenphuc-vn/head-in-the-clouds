@@ -1,9 +1,12 @@
-package personal.helper.quote;
+package personal.quote;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import personal.model.quote.DayQuoteDTO;
-import personal.model.quote.Quote;
+import personal.quote.helper.DayQuote;
+import personal.quote.helper.IQuote;
+import personal.quote.model.DayQuoteDTO;
+import personal.quote.model.Quote;
+
 import static org.junit.jupiter.api.Assertions.*;
 class DayQuoteTest {
     Quote dayQuote;

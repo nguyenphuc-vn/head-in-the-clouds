@@ -1,4 +1,4 @@
-package personal.helper.quote;
+package personal.quote.helper;
 
 import com.google.gson.Gson;
 

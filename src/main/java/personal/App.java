@@ -14,8 +14,8 @@ import java.io.IOException;
  * JavaFX App
  */
 public class App extends Application {
-    private final static int MAX_WIDTH = 910;
-    private final static int MAX_HEIGHT = 610;
+    private final static int MAX_WIDTH = 1020;
+    private final static int MAX_HEIGHT = 620;
     private static Scene scene;
 
 
