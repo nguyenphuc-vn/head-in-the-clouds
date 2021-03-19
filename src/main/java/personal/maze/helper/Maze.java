@@ -15,7 +15,7 @@ import java.util.logging.*;
 
 /**
  * Store each cell in 2d grid
- * Check neighbors and backtrack the whole visited cell
+ * Check neighbors and backtrack the whole visited cells
  */
 public class Maze {
     private final static Logger LOGGER = Logger.getLogger(Maze.class.getName());
@@ -116,7 +116,6 @@ public class Maze {
     public void drawTheLine(){
         timeline = new Timeline();
         timeline.getKeyFrames().add(new KeyFrame(Duration.millis(speed),e->{
-            //root.currentColor(gc);
             root.currentDot(gc,recWall);
             draw();
             findNext();
